@@ -1,0 +1,53 @@
+name: 📝 论文任务卡
+description: 论文写作拆任务用。一个章节/一节内容 = 一个 Issue + 一个 PR，老师用行内评论改稿。
+title: "[paper] "
+labels: ["paper"]
+body:
+  - type: input
+    id: section
+    attributes:
+      label: 章节位置
+      description: 写到哪一节？例如 "3.2 Method > 3.2.1 Loss"
+      placeholder: 3.2 Method / Loss 设计
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: 任务类型
+      options:
+        - 初稿撰写
+        - 改稿
+        - 图表制作
+        - 文献补全
+        - rebuttal 回复
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: 目标
+      description: 这一节要回答什么问题？读者读完后应知道什么？
+    validations:
+      required: true
+  - type: textarea
+    id: outline
+    attributes:
+      label: 写作大纲
+      description: 列 3-5 个要点
+  - type: textarea
+    id: refs
+    attributes:
+      label: 需引用的文献
+      description: 用编号引用现有阅读笔记（docs/notes/），或填"待补"
+      placeholder: notes/001-zhang2024.md, notes/014-li2025.md
+  - type: input
+    id: deadline
+    attributes:
+      label: 截止
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: 其他说明

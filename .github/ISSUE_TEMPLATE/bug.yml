@@ -1,0 +1,43 @@
+name: 🐛 Bug 报告
+description: 代码或文档里发现的问题。
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 一步一步写清楚怎么触发这个 bug
+      placeholder: |
+        1. 运行 `bash experiments/2026-09-07-exp02/run.sh`
+        2. 看到报错 X
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际行为
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: 触发该 bug 的 commit
+      placeholder: a1b2c3d
+  - type: textarea
+    id: env
+    attributes:
+      label: 环境信息
+      description: OS / Python 版本 / 关键依赖
+      placeholder: Ubuntu 22.04, Python 3.11, torch 2.1
+  - type: textarea
+    id: priority
+    attributes:
+      label: 影响范围 & 优先级
+      description: 影响谁/什么？P0=必须立刻修 / P1=本周 / P2=待处理

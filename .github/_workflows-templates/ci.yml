@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 检查新增实验目录是否含"四件套"
+        run: |
+          set -e
+          echo "🔍 扫描 PR 中变更的实验目录..."
+          changed=$(git diff --name-only origin/main...HEAD \
+            | grep -E '^experiments/[0-9]{4}-[0-9]{2}-[0-9]{2}-[^/]+/' \
+            | xargs -I{} dirname {} | sort -u || true)
+          if [ -z "$changed" ]; then
+            echo "本次 PR 未涉及 experiments/，跳过四件套检查"
+            exit 0
+          fi
+          for dir in $changed; do
+            missing=""
+            for f in config.yaml run.sh results.md commit.txt; do
+              if [ ! -f "$dir/$f" ]; then
+                missing="$missing $f"
+              fi
+            done
+            if [ -n "$missing" ]; then
+              echo "::warning file=$dir::实验目录缺少四件套:$missing"
+            else
+              echo "✓ $dir 四件套齐全"
+            fi
+          done
+
+      - name: 检查 PR 标题格式
+        run: |
+          title="${{ github.event.pull_request.title }}"
+          if echo "$title" | grep -qE '^(feat|fix|docs|chore|exp|paper)\:'; then
+            echo "✓ 标题符合规范: $title"
+          else
+            echo "::warning::建议标题以类型前缀开头，如 feat: / fix: / docs: / chore: / exp: / paper:"
+          fi
+
+      - name: 禁止直推 main 提醒
+        run: |
+          echo "ℹ️  本次 PR 必须经 1 人 Review 通过才能合并（main 分支保护）"

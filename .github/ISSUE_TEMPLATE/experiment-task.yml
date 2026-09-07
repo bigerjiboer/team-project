@@ -1,0 +1,55 @@
+name: 🧪 实验任务卡
+description: 一次实验 = 一个 Issue。实验结束后必须合并到 main（即使失败）。
+title: "[exp] "
+labels: ["experiment"]
+body:
+  - type: input
+    id: exp_id
+    attributes:
+      label: 实验编号
+      description: 形如 `exp02-attention-v1`
+      placeholder: exp02-xxx
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: 假设
+      description: 这次实验要验证的假设是什么？
+      placeholder: 加入 attention 机制后，模型在 X 数据集上 Acc 提升 ≥ 3%
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果
+      description: 你期望看到什么结果？对照组/基线是什么？
+    validations:
+      required: true
+  - type: input
+    id: dataset
+    attributes:
+      label: 涉及数据集
+      description: 用了哪些数据？版本/日期？
+      placeholder: dataset-v1.2 (2026-08-15)
+  - type: input
+    id: estimate
+    attributes:
+      label: 预计耗时
+      description: 训练+评估大约多久？
+      placeholder: 4 hours on single A100
+  - type: textarea
+    id: checklist
+    attributes:
+      label: 实验"四件套"自检
+      description: 实验目录里将包含（打勾确认你计划做）
+      value: |
+        - [ ] config.yaml（全部超参）
+        - [ ] run.sh（一条命令复现）
+        - [ ] results.md（表格 + 结论）
+        - [ ] commit.txt（代码 commit hash）
+        - [ ] experiments/SUMMARY.md 同步追加一行
+  - type: textarea
+    id: notes
+    attributes:
+      label: 其他说明

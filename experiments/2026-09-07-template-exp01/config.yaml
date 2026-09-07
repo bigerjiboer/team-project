@@ -1,0 +1,22 @@
+# 实验配置示例（exp01-baseline）
+# 复制此文件到新实验目录并按需修改
+
+experiment:
+  name: exp01-baseline
+  description: 基线实验，复制自仓库模板
+  seed: 42
+
+data:
+  path: data/sample/
+  train_split: 0.8
+  shuffle: true
+
+model:
+  type: baseline
+  hidden_dim: 128
+
+training:
+  epochs: 10
+  batch_size: 32
+  learning_rate: 0.001
+  optimizer: adam
