@@ -17,7 +17,7 @@
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/<你的账号>/team-project.git
+git clone https://github.com/bigerjiboer/team-project.git
 cd team-project
 
 # 2. 每次开工前先同步最新代码
